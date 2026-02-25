@@ -2,16 +2,16 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Briefcase, MapPin, Laptop, GraduationCap, Layout, Cpu } from "lucide-react";
+import { Briefcase, Laptop, GraduationCap, Cpu, Globe, MessageSquare } from "lucide-react";
 import ResumeModal from "../ui/ResumeModal";
 
 const stats = [
     { icon: <Briefcase className="text-accent-blue" />, label: "Experience", value: "5+ Years" },
-    { icon: <MapPin className="text-accent-blue" />, label: "Location", value: "Gurugram, India" },
-    { icon: <Laptop className="text-accent-blue" />, label: "Availability", value: "Remote / Hybrid" },
-    { icon: <Layout className="text-accent-blue" />, label: "Focus", value: "Product Engineering" },
+    { icon: <Globe className="text-accent-blue" />, label: "Timezone", value: "IST (Global Sync)" },
+    { icon: <MessageSquare className="text-accent-blue" />, label: "Communication", value: "English Expert" },
+    { icon: <Laptop className="text-accent-blue" />, label: "Remote Tools", value: "Slack, Jira, Git" },
     { icon: <Cpu className="text-accent-blue" />, label: "Core Stack", value: "React & Node.js" },
-    { icon: <GraduationCap className="text-accent-blue" />, label: "Education", value: "B.Tech CSE" },
+    { icon: <GraduationCap className="text-accent-blue" />, label: "Education", value: "B.Tech IT" },
 ];
 
 export default function RecruiterSnapshot() {

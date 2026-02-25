@@ -14,10 +14,12 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
 const RecruiterSnapshot = dynamic(() => import("@/components/sections/RecruiterSnapshot"));
+const EngineeringPhilosophy = dynamic(() => import("@/components/sections/EngineeringPhilosophy"));
 const ArchitectureSection = dynamic(() => import("@/components/sections/ArchitectureSection"));
 const TechSphere = dynamic(() => import("@/components/sections/TechSphere"));
 const EngineeringDepth = dynamic(() => import("@/components/sections/EngineeringDepth"));
 const Contact = dynamic(() => import("@/components/sections/Contact"));
+const StickyCTA = dynamic(() => import("@/components/ui/StickyCTA"));
 
 export default function Home() {
   return (
@@ -30,6 +32,9 @@ export default function Home() {
       <CoreExpertise />
       <Suspense fallback={<div className="h-60 flex items-center justify-center text-slate-500">Loading Recruiter Snapshot...</div>}>
         <RecruiterSnapshot />
+      </Suspense>
+      <Suspense fallback={<div className="h-60 flex items-center justify-center text-slate-500">Loading Philosophy...</div>}>
+        <EngineeringPhilosophy />
       </Suspense>
       <Suspense fallback={<div className="h-60 flex items-center justify-center text-slate-500">Loading Architecture...</div>}>
         <ArchitectureSection />
@@ -48,6 +53,7 @@ export default function Home() {
         <Contact />
       </Suspense>
       <Footer />
+      <StickyCTA />
     </main>
   );
 }

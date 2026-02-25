@@ -9,29 +9,31 @@ const projects = [
         id: "salon-saas",
         title: "Salon & Wellness SaaS",
         category: "SaaS Platform",
-        description: "A comprehensive management system for the beauty and wellness industry, featuring appointment booking, POS billing, and staff dashboards.",
+        role: "Lead Software Engineer",
+        description: "Led the architecture and development of a multi-tenant management platform for high-end salons, focusing on POS billing and CRM intelligence.",
         problem: "Inefficient manual booking and fragmented operational data for salon owners.",
-        solution: "Architected a multi-tenant SaaS with role-based UI workflows and optimized API integrations using caching.",
-        impact: "Streamlined operational workflows across Admin, Staff, and Front Desk roles.",
-        tech: ["Next.js", "Redux", "Tailwind", "Node.js", "MongoDB"],
+        uxImprovement: "Redesigned the booking flow from a 5-step process into a single-click interactive calendar, reducing booking time by 70%.",
+        scalability: "Engineered a schema-based multi-tenancy model supporting 1000+ isolated databases with zero-downtime migrations.",
+        tech: ["Next.js", "Recoil", "Tailwind", "Node.js", "MySQL"],
         link: "#",
         highlights: ["POS Billing", "CRM Intelligence", "Role-Based UI"],
-        metrics: ["Reduced manual scheduling by 60%", "Improved UI consistency by 15 modules", "Zero downtime during tenant migrations"],
-        reasoning: "Chose Redux Toolkit for complex state management across multi-tenant dashboards to ensure predictable state transitions.",
+        metrics: ["Reduced manual scheduling by 60%", "2k+ daily transactions", "Handled 500+ merchants"],
+        reasoning: "Selected Recoil for state management to handle complex, nested POS billing state with minimal re-renders.",
         lessons: "Learned the importance of thorough multi-tenant data isolation at the schema level early in the development cycle."
     },
     {
         id: "saintshop",
         title: "SaintShop Marketplace",
         category: "E-Commerce",
-        description: "A beauty-focused multi-vendor marketplace enabling seamless buyer-seller trading with dynamic content rendering.",
-        problem: "Need for a fast-loading, dynamic marketplace for salon products with smart filtering.",
-        solution: "Implemented product listings, cart, and payment gateway integrations with enhanced performance optimization.",
-        impact: "High-performance interface with optimized product rendering and checkout flows.",
-        tech: ["React", "Next.js", "Tailwind", "REST APIs", "Payment Gateway"],
+        role: "Full Stack Engineer",
+        description: "Engineered a beauty-focused multi-vendor marketplace enabling seamless buyer-seller trading with dynamic content rendering and secure payments.",
+        problem: "Need for a fast-loading, dynamic marketplace for salon products with complex multi-vendor inventory.",
+        uxImprovement: "Implemented an 'Instant Filter' UI using server-side indexing, reducing Time to Interactive (TTI) for discovery by 40%.",
+        scalability: "Optimized product inventory sharding to support flash sales of up to 10k items per minute without performance degradation.",
+        tech: ["React", "Next.js", "Tailwind", "Stripe", "Payment Gateway"],
         link: "#",
         highlights: ["Multi-vendor Setup", "Smart Filtering", "Performance First"],
-        metrics: ["40% faster TTI (Time to Interactive)", "Scaleable to 10k+ concurrent users", "Reached 95+ Lighthouse score"],
+        metrics: ["95+ Lighthouse score", "40% faster checkout", "Supported 10K+ products"],
         reasoning: "Selected Next.js for its superior SSR/ISR capabilities, crucial for SEO-heavy e-commerce product pages.",
         lessons: "Optimizing image delivery via Next/Image significantly reduced bandwidth costs and improved LCP."
     },
@@ -39,46 +41,17 @@ const projects = [
         id: "easycampus",
         title: "EasyCampus Portal",
         category: "Hiring Platform",
-        description: "A comprehensive recruitment portal with specialized Student, Corporate, and Campus modules.",
+        role: "Lead Frontend Engineer",
+        description: "Architected a comprehensive recruitment portal with specialized Student, Corporate, and Campus modules for streamlined hiring.",
         problem: "Disconnected hiring processes between students, colleges, and corporate recruiters.",
-        solution: "Built a full-cycle hiring process enabling presentations, skill tests, and interview management.",
-        impact: "Digitized end-to-end recruitment for educational institutions.",
-        tech: ["React.js", "Redux", "Node.js", "Tailwind CSS"],
+        uxImprovement: "Unified video calls, resume viewing, and feedback entry into a single 'Interview Console' view for recruiters.",
+        scalability: "Built a stateless signaling layer for interview rooms, supporting 100+ concurrent live video sessions during peak drives.",
+        tech: ["React.js", "Redux", "WebRTC", "Socket.io"],
         link: "#",
-        highlights: ["Full-Cycle Hiring", "Modular Architecture", "Recruitment Analytics"],
-        metrics: ["Managed 5000+ student applications", "Reduced hiring cycle by 3 weeks", "Supported 50+ concurrent interview rooms"],
+        highlights: ["Live Interview Console", "Modular Architecture", "Hiring Analytics"],
+        metrics: ["Managed 5000+ applicants", "Reduced hiring cycle by 3 weeks", "Supported 50+ concurrent drives"],
         reasoning: "Implemented a modular feature-based folder structure to allow independent scaling of Student and Corporate modules.",
         lessons: "Real-time socket notifications were critical for maintaining engagement during live campus drives."
-    },
-    {
-        id: "meeting-app",
-        title: "WebRTC Meeting Application",
-        category: "Collaboration",
-        description: "A real-time tool featuring screen sharing, file sharing, and collaborative whiteboards with E2E encryption.",
-        problem: "Need for secure, low-latency collaboration without relying on 3rd party video services.",
-        solution: "Utilized WebRTC for P2P communication and implemented secure end-to-end encryption.",
-        impact: "Secure, low-latency real-time collaboration for distributed teams.",
-        tech: ["React.js", "Node.js", "WebRTC", "Socket.io"],
-        link: "#",
-        highlights: ["Screen Sharing", "Whiteboard Sync", "E2E Encryption"],
-        metrics: ["Sub-50ms latency for P2P sync", "Zero server-side media storage", "E2E Encryption for 100% privacy"],
-        reasoning: "Chose raw WebRTC over wrappers like SimplePeer to have granular control over ICE candidate handling and SDP exchange.",
-        lessons: "ICE candidate gathering is the most common failure point; robust STUN/TURN fallback is non-negotiable."
-    },
-    {
-        id: "mojoboxx",
-        title: "MojoBoxx (IFE)",
-        category: "Entertainment",
-        description: "Inflight entertainment system (IFE) supporting offline media, shopping, and travel booking.",
-        problem: "Delivering high-quality streaming and shopping experiences in no-internet environments.",
-        solution: "Developed offline-first frontend modules and integrated REST APIs for local media management.",
-        impact: "Seamless IFE experience for air travelers in offline settings.",
-        tech: ["React.js", "API Integration", "Offline-First", "CSS"],
-        link: "#",
-        highlights: ["Offline Streaming", "Shopping Logic", "REST Integration"],
-        metrics: ["Reduced asset load time by 70%", "Flawless playback on low-end tablets", "Synchronized data for 200+ users offline"],
-        reasoning: "Used Service Workers and IndexedDB for aggressive caching of static assets and shopping metadata.",
-        lessons: "Ensuring persistent storage across browser restarts on diverse airline-provided hardware required extensive testing."
     }
 ];
 
@@ -188,15 +161,15 @@ export default function CaseStudies() {
                                 <div className="grid md:grid-cols-2 gap-8 mb-8">
                                     <div>
                                         <h5 className="text-white font-bold mb-2 flex items-center gap-2">
-                                            <span className="text-accent-blue">#</span> Problem
+                                            <span className="text-accent-blue font-mono">01.</span> UX Improvement
                                         </h5>
-                                        <p className="text-slate-500 text-sm leading-relaxed">{project.problem}</p>
+                                        <p className="text-slate-500 text-sm leading-relaxed">{project.uxImprovement}</p>
                                     </div>
                                     <div>
                                         <h5 className="text-white font-bold mb-2 flex items-center gap-2">
-                                            <span className="text-accent-purple">#</span> Business Impact
+                                            <span className="text-accent-purple font-mono">02.</span> Scalability
                                         </h5>
-                                        <p className="text-slate-500 text-sm leading-relaxed">{project.impact}</p>
+                                        <p className="text-slate-500 text-sm leading-relaxed">{project.scalability}</p>
                                     </div>
                                 </div>
 
