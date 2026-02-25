@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "@/components/layout/ClientLayout";
+import { WebVitals } from "@/components/ui/WebVitals";
+import StickyCTA from "@/components/ui/StickyCTA";
+import GlobalErrorBoundary from "@/components/ui/GlobalErrorBoundary";
+import { ToastProvider } from "@/components/ui/Toast";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -57,7 +61,13 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ClientLayout>
-          {children}
+          <ToastProvider>
+            <WebVitals />
+            <GlobalErrorBoundary>
+              {children}
+            </GlobalErrorBoundary>
+            <StickyCTA />
+          </ToastProvider>
         </ClientLayout>
       </body>
     </html>

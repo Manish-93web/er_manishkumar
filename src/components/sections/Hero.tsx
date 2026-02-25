@@ -33,13 +33,17 @@ export default function Hero() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.2 }}
-                        className="inline-block px-4 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-sm font-semibold mb-6 marquee"
+                        className="inline-flex items-center gap-2 px-4 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-sm font-semibold mb-6"
                     >
-                        Available for New Projects
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        Available for New Opportunities
                     </motion.div>
 
                     <h1 className="text-5xl md:text-7xl font-heading font-extrabold leading-[1.1] mb-6">
-                        Building <span className="text-accent-blue glow-text">Scalable SaaS</span> & Real-Time Systems
+                        Engineering <span className="text-accent-blue glow-text">Scalable</span> Digital Products
                     </h1>
 
                     <div className="text-xl md:text-2xl font-body text-slate-400 mb-8 h-16">
@@ -67,10 +71,10 @@ export default function Hero() {
                                 href="#projects"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                aria-label="View my portfolio projects and case studies"
+                                aria-label="Explore my work and case studies"
                                 className="px-8 py-4 rounded-full bg-accent-blue text-white font-bold flex items-center gap-2 hover:bg-blue-600 transition-all shadow-[0_0_20px_rgba(59,130,246,0.4)] outline-none focus-visible:ring-4 focus-visible:ring-blue-500/50"
                             >
-                                View Case Studies <ArrowRight size={20} />
+                                Let&apos;s Build Your Product <ArrowRight size={20} />
                             </motion.a>
                         </Magnetic>
                         <Magnetic>
@@ -78,10 +82,10 @@ export default function Hero() {
                                 onClick={() => setIsResumeOpen(true)}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                aria-label="Download or view my professional resume"
+                                aria-label="Download Manish's Resume"
                                 className="px-8 py-4 rounded-full border border-slate-700 bg-slate-800/50 text-white font-bold flex items-center gap-2 hover:bg-slate-800 transition-all outline-none focus-visible:ring-4 focus-visible:ring-white/20"
                             >
-                                Resume <Download size={20} />
+                                Download Resume <Download size={20} />
                             </motion.button>
                         </Magnetic>
                     </div>

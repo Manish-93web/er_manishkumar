@@ -30,7 +30,7 @@ function AnimatedSphere({ isMobile }: { isMobile: boolean }) {
     );
 }
 
-function OrbitingLogos() {
+function OrbitingLogos({ isMobile }: { isMobile: boolean }) {
     const groupRef = useRef<THREE.Group>(null!);
 
     useFrame((state) => {

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useRef, useMemo, useState, useEffect, Suspense, lazy } from "react";
+import React, { useRef, useMemo, useState, useEffect, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Text, Float, OrbitControls, PerformanceMonitor } from "@react-three/drei";
+import { Text, OrbitControls, PerformanceMonitor } from "@react-three/drei";
 import * as THREE from "three";
 import { useInView } from "framer-motion";
 
@@ -18,7 +18,9 @@ function TechWord({ word, position }: { word: string; position: THREE.Vector3 })
 
     useFrame(({ camera }) => {
         // Make text always face the camera
-        textRef.current.quaternion.copy(camera.quaternion);
+        if (textRef.current) {
+            textRef.current.quaternion.copy(camera.quaternion);
+        }
     });
 
     return (
@@ -26,8 +28,7 @@ function TechWord({ word, position }: { word: string; position: THREE.Vector3 })
             ref={textRef}
             position={position}
             fontSize={0.4}
-            color="white"
-            font="/fonts/SpaceGrotesk-Bold.ttf"
+            color="#ffffff"
             anchorX="center"
             anchorY="middle"
         >
@@ -36,7 +37,7 @@ function TechWord({ word, position }: { word: string; position: THREE.Vector3 })
     );
 }
 
-function Cloud({ count = 20, radius = 5 }) {
+function Cloud({ radius = 5 }) {
     const words = useMemo(() => {
         const temp = [];
         const phiSpan = Math.PI * (3 - Math.sqrt(5));
@@ -52,8 +53,10 @@ function Cloud({ count = 20, radius = 5 }) {
     }, [radius]);
 
     const groupRef = useRef<THREE.Group>(null!);
-    useFrame((state) => {
-        groupRef.current.rotation.y += 0.005;
+    useFrame(() => {
+        if (groupRef.current) {
+            groupRef.current.rotation.y += 0.005;
+        }
     });
 
     return (
@@ -69,20 +72,27 @@ export default function TechSphere() {
     const containerRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(containerRef, { once: false, amount: 0.1 });
     const [dpr, setDpr] = useState(1);
+    const [isMounted, setIsMounted] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
+        setIsMounted(true);
         setIsMobile(window.innerWidth < 768);
     }, []);
 
+    if (!isMounted) return <div className="h-[600px]" />;
+
     return (
-        <section ref={containerRef} className="py-24 relative h-[600px] flex flex-col items-center">
-            <div className="container mx-auto px-6 text-center mb-12">
+        <section ref={containerRef} className="py-24 relative h-[650px] flex flex-col items-center bg-slate-900/10">
+            <div className="container mx-auto px-6 text-center mb-8 shrink-0">
                 <h2 className="text-sm font-semibold text-accent-blue uppercase tracking-[0.2em] mb-4">The Stack</h2>
-                <h3 className="text-4xl font-heading font-bold">Interactive <span className="text-white brightness-125">Technology Globe</span></h3>
+                <h3 className="text-4xl md:text-5xl font-heading font-bold">Interactive <span className="text-white brightness-125">Technology Globe</span></h3>
+                <p className="text-slate-500 mt-4 max-w-lg mx-auto text-sm">
+                    A visualization of my core technical stack and language expertise.
+                </p>
             </div>
 
-            <div className="w-full h-full cursor-grab active:cursor-grabbing">
+            <div className="flex-1 w-full cursor-grab active:cursor-grabbing relative">
                 {isInView ? (
                     <Suspense fallback={
                         <div className="w-full h-full flex items-center justify-center text-slate-500 font-medium">
@@ -92,29 +102,31 @@ export default function TechSphere() {
                         <Canvas
                             camera={{ position: [0, 0, 10], fov: 60 }}
                             dpr={dpr}
-                            gl={{ antialias: !isMobile }}
+                            gl={{ antialias: false, alpha: true }}
                         >
-                            <PerformanceMonitor onDecline={() => setDpr(1)} onIncline={() => setDpr(2)} />
+                            <PerformanceMonitor onDecline={() => setDpr(1)} onIncline={() => setDpr(1.5)} />
                             <ambientLight intensity={0.5} />
                             <pointLight position={[10, 10, 10]} intensity={1} />
-                            <Cloud radius={isMobile ? 4 : 6} />
+                            <Cloud radius={isMobile ? 4.5 : 6} />
                             <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.5} />
                         </Canvas>
                     </Suspense>
                 ) : (
                     <div className="w-full h-full flex items-center justify-center text-slate-700">
-                        {/* Static Placeholder for Performance */}
-                        <div className="grid grid-cols-4 gap-4 opacity-20 filter blur-sm">
-                            {technologies.slice(0, 12).map((t, i) => (
-                                <span key={i} className="text-xl font-bold">{t}</span>
+                        {/* More visible placeholder */}
+                        <div className="grid grid-cols-4 gap-8 opacity-40">
+                            {technologies.slice(0, 16).map((t, i) => (
+                                <span key={i} className="text-sm font-bold uppercase tracking-widest">{t}</span>
                             ))}
                         </div>
                     </div>
                 )}
             </div>
 
-            <div className="absolute bottom-10 text-slate-500 text-sm animate-pulse">
-                Drag to rotate and explore the stack
+            <div className="shrink-0 mt-8 text-slate-500 text-xs tracking-widest uppercase flex items-center gap-4">
+                <span className="w-8 h-px bg-slate-800" />
+                Drag to rotate stack
+                <span className="w-8 h-px bg-slate-800" />
             </div>
         </section>
     );

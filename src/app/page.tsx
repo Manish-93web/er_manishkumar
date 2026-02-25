@@ -4,13 +4,20 @@ import TrustStrip from "@/components/sections/TrustStrip";
 import About from "@/components/sections/About";
 import CoreExpertise from "@/components/sections/CoreExpertise";
 import CaseStudies from "@/components/sections/CaseStudies";
-import TechSphere from "@/components/sections/TechSphere";
 import GitHubSection from "@/components/sections/GitHubSection";
 import BlogSection from "@/components/sections/BlogSection";
 import Testimonials from "@/components/sections/Testimonials";
-import Contact from "@/components/sections/Contact";
 import Footer from "@/components/ui/Footer";
 import StrategicSEO from "@/components/ui/StrategicSEO";
+
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+
+const RecruiterSnapshot = dynamic(() => import("@/components/sections/RecruiterSnapshot"));
+const ArchitectureSection = dynamic(() => import("@/components/sections/ArchitectureSection"));
+const TechSphere = dynamic(() => import("@/components/sections/TechSphere"));
+const EngineeringDepth = dynamic(() => import("@/components/sections/EngineeringDepth"));
+const Contact = dynamic(() => import("@/components/sections/Contact"));
 
 export default function Home() {
   return (
@@ -21,12 +28,25 @@ export default function Home() {
       <TrustStrip />
       <About />
       <CoreExpertise />
+      <Suspense fallback={<div className="h-60 flex items-center justify-center text-slate-500">Loading Recruiter Snapshot...</div>}>
+        <RecruiterSnapshot />
+      </Suspense>
+      <Suspense fallback={<div className="h-60 flex items-center justify-center text-slate-500">Loading Architecture...</div>}>
+        <ArchitectureSection />
+      </Suspense>
       <CaseStudies />
-      <TechSphere />
+      <Suspense fallback={<div className="h-60 flex items-center justify-center text-slate-500">Loading Engineering Depth...</div>}>
+        <EngineeringDepth />
+      </Suspense>
+      <Suspense fallback={<div className="h-60 flex items-center justify-center text-slate-500">Loading Tech Sphere...</div>}>
+        <TechSphere />
+      </Suspense>
       <GitHubSection />
       <BlogSection />
       <Testimonials />
-      <Contact />
+      <Suspense fallback={<div className="h-60 flex items-center justify-center text-slate-500">Loading Contact Form...</div>}>
+        <Contact />
+      </Suspense>
       <Footer />
     </main>
   );
